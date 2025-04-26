@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: your_pass
+      POSTGRES_DB: your_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    environment:
+      DB_USER: postgres
+      DB_HOST: db
+      DB_DATABASE: your_db
+      DB_PASSWORD: your_pass
+      DB_PORT: 5432
+    volumes:
+      - .:/app
+    command: npm start
+
+volumes:
+  db-data:
