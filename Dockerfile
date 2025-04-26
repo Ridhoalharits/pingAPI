@@ -1,5 +1,5 @@
 # Gunakan image node resmi
-FROM node:18
+FROM node
 
 # Set work directory di dalam container
 WORKDIR /app
